@@ -5,7 +5,15 @@
 -export([stop/1]).
 
 start(_Type, _Args) ->
-	telebot_sup:start_link().
+  Dispatch = cowboy_router:compile([
+    {'_', [
+      {"/wh", webhook_handler, []}
+    ]}
+  ]),
+  {ok, _} = cowboy:start_clear(http, [{port, 8080}],
+    #{env => #{dispatch => Dispatch}}),
+
+  telebot_sup:start_link().
 
 stop(_State) ->
-	ok.
+  ok.

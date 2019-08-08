@@ -4,9 +4,13 @@ deps
 *.beam
 *.plt
 erl_crash.dump
-ebin/*.beam
 rel/example_project
 .concrete/DEV_MODE
 .rebar
 .idea
 telebot.iml
+
+/ebin
+/_rel
+/*.d
+/.erlang.mk
