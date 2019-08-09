@@ -10,7 +10,7 @@ start(_Type, _Args) ->
       {"/wh", webhook_handler, []}
     ]}
   ]),
-  {ok, _} = cowboy:start_clear(http, [{port, 8080}],
+  {ok, _} = cowboy:start_clear(http, [{ip, {0, 0, 0, 0}}, {port, 5000}],
     #{env => #{dispatch => Dispatch}}),
 
   telebot_sup:start_link().

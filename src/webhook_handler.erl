@@ -15,7 +15,7 @@ init(Req0, State) ->
   {ok, Body, _} = cowboy_req:read_body(Req0),
   io:format("~nRequest body: ~p~n", [Body]),
 
-  Req = cowboy_req:reply(200, #{
-    <<"content-type">> => <<"text/plain">>
-  }, <<"Hello World!">>, Req0),
-  {ok, Req, State}.
+%%  Req = cowboy_req:reply(200, #{
+%%    <<"content-type">> => <<"text/plain">>
+%%  }, <<"Hello World!">>, Req0),
+  {ok, Req0, State}.
