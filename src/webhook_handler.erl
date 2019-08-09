@@ -7,13 +7,17 @@
 
 
 init(Req0, State) ->
-  io:format("~nRequest: ~p~n", [Req0]),
-
-  Method = cowboy_req:method(Req0),
-  io:format("~nRequest method: ~p~n", [Method]),
-
   {ok, Body, _} = cowboy_req:read_body(Req0),
-  io:format("~nRequest body: ~p~n", [Body]),
+  io:format("Request body: ~p~n", [Body]),
+  io:format("Request body is JSON: ~p~n", [jsx:is_json(Body)]),
+
+  Data = jsx:decode(Body, [return_maps]),
+
+  Message = maps:get(<<"message">>, Data),
+
+  Text = maps:get(<<"text">>, Message),
+
+  io:format("Text: ~w~n", [Text]),
 
   Req = cowboy_req:reply(200, #{}, Req0),
 
