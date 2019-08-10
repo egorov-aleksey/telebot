@@ -14,10 +14,16 @@ init(Req0, State) ->
   Data = jsx:decode(Body, [return_maps]),
 
   Message = maps:get(<<"message">>, Data),
-
   Text = maps:get(<<"text">>, Message),
+  Chat = maps:get(<<"chat">>, Message),
+  ChatId = maps:get(<<"id">>, Chat),
 
-  io:format("Text: ~w~n", [Text]),
+  io:format("ChatId, Text: ~p~p~n", [ChatId, Text]),
+
+  SendMessageUrl = "https://api.telegram.org/bot491597762:AAFt2yvixsHfU0aaMCWEyPNoZupzo3i4E74/sendMessage?chat_id="
+    ++ integer_to_list(ChatId) ++ "&text=" ++ binary_to_list(Text),
+
+  httpc:request(get, {SendMessageUrl, []}, [], []),
 
   Req = cowboy_req:reply(200, #{}, Req0),
 
