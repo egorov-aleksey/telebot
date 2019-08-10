@@ -1,0 +1,3 @@
+[
+  {telebot, [{bot_token, "<BOT_TOKEN>"}]}
+].
